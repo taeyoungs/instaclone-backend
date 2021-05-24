@@ -22,11 +22,11 @@ const resolvers = {
   },
   Mutation: {
     // root, args, context, info
-    createMovie: (_, { title }) => {
+    createMovie: (_: any, { title }: { title: string }) => {
       console.log(title);
       return true;
     },
-    deleteMovie: (_, { title }) => {
+    deleteMovie: (_: any, { title }: { title: string }) => {
       console.log(title);
       return true;
     },

@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --exec babel-node server"
+    "dev": "nodemon --exec ts-node server --ext ts,js",
+    "tsc": "tsc"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,9 @@
     "@babel/core": "^7.14.3",
     "@babel/node": "^7.14.2",
     "@babel/preset-env": "^7.14.2",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "prisma": "^2.23.0",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.2.4"
   }
 }
