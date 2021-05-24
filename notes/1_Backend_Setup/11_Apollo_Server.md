@@ -1,17 +1,3 @@
-# 10 Setup
-
-## log
-
-- git initialize
-- Add gitignore
-- npm init
-
-## tips
-
-## issue
-
-- none
-
 # 11 Apollo Server
 
 ## log
