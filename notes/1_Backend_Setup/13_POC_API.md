@@ -1,5 +1,11 @@
-import { ApolloServer, gql } from 'apollo-server';
+# 13 POC API
 
+## log
+
+- 현재는 한 파일에 type 정의부터 resolve까지 모두 작성하고 있지만 후에 리팩토링 진행
+- GraphQL Recap
+
+```js
 const typeDefs = gql`
   type Movie {
     title: String
@@ -32,12 +38,14 @@ const resolvers = {
     },
   },
 };
+```
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-});
+## tips
 
-server
-  .listen()
-  .then(() => console.log('Server is running on http://localhost:4000'));
+## issue
+
+- none
+
+## dependencies
+
+## devDependencies
