@@ -5,8 +5,9 @@ const loadedTypes = loadFilesSync(`${__dirname}/**/*.typeDefs.ts`);
 const typeDefs = mergeTypeDefs(loadedTypes);
 
 const loadedResolvers = loadFilesSync(
-  `${__dirname}/**/*.{queries, mutations}.ts`
+  `${__dirname}/**/*.{queries,mutations}.ts`
 );
+
 const resolvers = mergeResolvers(loadedResolvers);
 
 const schema = makeExecutableSchema({
