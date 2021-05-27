@@ -20,4 +20,8 @@
 
 ## dependencies
 
+- "jsonwebtoken": "^8.5.1"
+
 ## devDependencies
+
+- "@types/jsonwebtoken": "^8.5.1"
