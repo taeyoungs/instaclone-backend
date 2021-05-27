@@ -1,7 +1,14 @@
-export default {
+import { Resolvers } from '../type';
+
+const resolvers: Resolvers = {
   Query: {
-    seeProfile: (_: any, { username }: { username: string }) => {
-      console.log('test');
-    },
+    seeProfile: (_, { username }, { client }) =>
+      client.user.findUnique({
+        where: {
+          username,
+        },
+      }),
   },
 };
+
+export default resolvers;
