@@ -11,7 +11,7 @@
 
 - 토큰을 전달하는 가장 기초적인 방법에는 mutation argument로 같이 보내주는 방법이 있다.
 
-이는 편해보일지 몰라도 모든 mutation 요청 또는 토큰이 필요한 모든 작업에 token을 argument로 전달해야하는 문제가 있다. 기본적으로 클라이언트에서 토큰을 담아 보내는 곳은 request header의 Authorization이다. Authorization에 토큰의 종류와 토큰값을 공백으로 구분하여 하나의 문자열로 만들어 보내곤 한다. ex) "Authorization": "Bearer ~token~"
+이는 편해보일지 몰라도 모든 mutation 요청 또는 토큰이 필요한 모든 작업에 token을 argument로 전달해야하는 문제가 있다. 기본적으로 클라이언트에서 토큰을 담아 보내는 곳은 request header의 Authorization이다. Authorization에 토큰의 종류와 토큰값을 공백으로 구분하여 하나의 문자열로 만들어 보내곤 한다. ex) "Authorization": "Bearer (token)"
 
 - context
 

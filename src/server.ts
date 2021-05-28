@@ -10,7 +10,7 @@ const server = new ApolloServer({
   context: async ({ req }) => {
     return {
       client,
-      user: await getUser(req.headers.authorization || null),
+      loggedInUser: await getUser(req.headers.authorization || null),
     };
   },
 });

@@ -17,7 +17,7 @@ type User = {
 
 type Client = {
   client: PrismaClient;
-  user: User;
+  loggedInUser: User;
 };
 
 export type Resolver = (
