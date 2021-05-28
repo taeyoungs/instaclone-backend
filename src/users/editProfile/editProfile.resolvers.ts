@@ -18,16 +18,21 @@ const resolvers: Resolvers = {
           bio,
           avatar,
         },
-        { client }
+        { client, loggedInUser }
       ) => {
-        const { filename, createReadStream } =
-          (await avatar) as GraphQLFileUpload;
-        const readStream = createReadStream();
+        let avatarUrl = null;
+        if (avatar) {
+          const { filename, createReadStream } =
+            (await avatar) as GraphQLFileUpload;
+          const newFilename = `${loggedInUser.id}-${Date.now()}-${filename}`;
+          const readStream = createReadStream();
 
-        const writeStream = createWriteStream(
-          path.join(process.cwd(), 'uploads', filename)
-        );
-        readStream.pipe(writeStream);
+          const writeStream = createWriteStream(
+            path.join(process.cwd(), 'uploads', newFilename)
+          );
+          readStream.pipe(writeStream);
+          avatarUrl = `http://localhost:4000/static/${newFilename}`;
+        }
 
         // password를 전달받았을 때만 password를 hash 처리
         let hashedPassword = null;
@@ -46,6 +51,7 @@ const resolvers: Resolvers = {
             firstName,
             bio,
             ...(hashedPassword && { password: hashedPassword }),
+            ...(avatarUrl && { avatar: avatarUrl }),
           },
         });
 
