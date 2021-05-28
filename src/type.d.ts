@@ -1,4 +1,5 @@
 import { PrismaClient } from '.prisma/client';
+import { ReadStream } from 'fs-capacitor';
 
 type TokenType = {
   id: number;
@@ -19,6 +20,16 @@ type Client = {
   client: PrismaClient;
   loggedInUser: User;
 };
+
+export interface GraphQLFileUpload {
+  filename: string;
+  mimetype: string;
+  encoding: string;
+  createReadStream(options?: {
+    encoding?: string;
+    highWaterMark?: number;
+  }): ReadStream;
+}
 
 export type Resolver = (
   root: any,

@@ -5,7 +5,7 @@ const resolvers: Resolvers = {
   Mutation: {
     createAccount: async (
       _,
-      { firstName, lastName, username, email, password },
+      { firstName, lastName, username, email, password, bio },
       { client }
     ) => {
       try {
@@ -35,6 +35,7 @@ const resolvers: Resolvers = {
             lastName,
             email,
             password: hashedPassowrd,
+            bio,
           },
         });
       } catch (error) {

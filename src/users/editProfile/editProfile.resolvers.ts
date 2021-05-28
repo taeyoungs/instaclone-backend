@@ -1,5 +1,7 @@
-import { Resolvers } from '../../type';
+import path from 'path';
+import { GraphQLFileUpload, Resolvers } from '../../type';
 import bcrypt from 'bcrypt';
+import { createWriteStream } from 'fs';
 import { protectedResolver } from '../users.utils';
 
 const resolvers: Resolvers = {
@@ -7,9 +9,26 @@ const resolvers: Resolvers = {
     editProfile: protectedResolver(
       async (
         _,
-        { username, email, firstName, lastName, password: newPassword },
+        {
+          username,
+          email,
+          firstName,
+          lastName,
+          password: newPassword,
+          bio,
+          avatar,
+        },
         { client }
       ) => {
+        const { filename, createReadStream } =
+          (await avatar) as GraphQLFileUpload;
+        const readStream = createReadStream();
+
+        const writeStream = createWriteStream(
+          path.join(process.cwd(), 'uploads', filename)
+        );
+        readStream.pipe(writeStream);
+
         // password를 전달받았을 때만 password를 hash 처리
         let hashedPassword = null;
         if (newPassword) {
@@ -25,6 +44,7 @@ const resolvers: Resolvers = {
             email,
             lastName,
             firstName,
+            bio,
             ...(hashedPassword && { password: hashedPassword }),
           },
         });
