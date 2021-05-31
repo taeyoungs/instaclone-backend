@@ -19,6 +19,8 @@ model User {
   password  String
   bio       String?
   avatar    String?
+  following User[]   @relation("FollowRelations", references: [id])
+  followers User[]   @relation("FollowRelations", references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

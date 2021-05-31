@@ -6,10 +6,10 @@ Instaclone Backend.
 
 - [x] Create Account
 - [x] See Profile
-- [ ] Login
-- [ ] Edit Profile
-- [ ] Change Avatar (Image Upload)
-- [ ] Follow User
+- [x] Login
+- [x] Edit Profile
+- [x] Change Avatar (Image Upload)
+- [x] Follow User
 - [ ] UnFollow User
 - [ ] Search Users
 - [ ] See Followers
