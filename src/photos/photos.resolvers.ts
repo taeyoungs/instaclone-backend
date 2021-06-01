@@ -20,4 +20,28 @@ export default {
         },
       }),
   },
+  Hashtag: {
+    photos: ({ id }, { lastId }, { client }) =>
+      client.hashtag
+        .findUnique({
+          where: {
+            id,
+          },
+        })
+        .photos({
+          take: 5,
+          skip: lastId ? 1 : 0,
+          ...(lastId && { cursor: { id: lastId } }),
+        }),
+    totalPhoto: ({ id }, _, { client }) =>
+      client.photo.count({
+        where: {
+          hashtags: {
+            some: {
+              id,
+            },
+          },
+        },
+      }),
+  },
 } as Resolvers;
