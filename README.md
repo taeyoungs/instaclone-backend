@@ -13,4 +13,16 @@ Instaclone Backend.
 - [x] UnFollow User
 - [x] See Followers with Offset Pagination
 - [x] See Following with Cursor-based Pagination
-- [ ] Search Users
+- [x] Computed Fields
+- [x] Search Users
+
+## Photos
+
+- [ ] Upload Photo (Parse #)
+- [ ] See Photo
+- [ ] See Hashtags
+- [ ] Search Photos
+- [ ] Edit Photo
+- [ ] Like / Unlike Photo
+- [ ] See Feed
+- [ ] See Photo Likes
