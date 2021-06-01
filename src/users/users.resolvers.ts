@@ -50,7 +50,7 @@ const resolvers: Resolvers = {
             id,
           },
         })
-        .Photo({
+        .photos({
           take: 5,
           skip: lastId ? 1 : 0,
           ...(lastId && { cursor: { id: lastId } }),

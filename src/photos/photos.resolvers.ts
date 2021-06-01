@@ -19,6 +19,12 @@ export default {
           },
         },
       }),
+    likes: ({ id }: Photo, _, { client }) =>
+      client.like.count({
+        where: {
+          photoId: id,
+        },
+      }),
   },
   Hashtag: {
     photos: ({ id }, { lastId }, { client }) =>
