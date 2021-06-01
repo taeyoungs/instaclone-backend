@@ -1,6 +1,7 @@
 import { Photo } from '.prisma/client';
 import { Resolvers } from '../../type';
 import { protectedResolver } from '../../users/users.utils';
+import { processHashtags } from '../photos.utils';
 
 export default {
   Mutation: {
@@ -11,14 +12,7 @@ export default {
         if (caption) {
           const hashtags = caption.match(/#[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|\w]+/g);
           if (hashtags) {
-            hashtagObj = hashtags.map((hashtag) => ({
-              where: {
-                hashtag,
-              },
-              create: {
-                hashtag,
-              },
-            }));
+            hashtagObj = processHashtags(caption);
           }
         }
 
