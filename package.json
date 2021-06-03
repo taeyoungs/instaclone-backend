@@ -7,6 +7,8 @@
     "dev": "nodemon --exec npx ts-node src/server --ext ts,js --delay 2",
     "migrate": "npx prisma migrate dev",
     "studio": "npx prisma studio",
+    "build": "babel src --out-dir build --extensions .ts",
+    "start": "node build/server",
     "tsc": "tsc"
   },
   "repository": {
@@ -21,6 +23,8 @@
   },
   "homepage": "https://github.com/taeyoungs/instaclone-backend#readme",
   "dependencies": {
+    "@babel/cli": "^7.14.3",
+    "@babel/runtime": "^7.14.0",
     "@prisma/client": "^2.23.0",
     "apollo-server": "^2.24.1",
     "apollo-server-express": "^2.25.0",
@@ -36,7 +40,9 @@
   "devDependencies": {
     "@babel/core": "^7.14.3",
     "@babel/node": "^7.14.2",
+    "@babel/plugin-transform-runtime": "^7.14.3",
     "@babel/preset-env": "^7.14.2",
+    "@babel/preset-typescript": "^7.13.0",
     "@types/bcrypt": "^5.0.0",
     "@types/graphql-upload": "^8.0.4",
     "@types/jsonwebtoken": "^8.5.1",

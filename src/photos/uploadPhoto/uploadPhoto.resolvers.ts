@@ -10,10 +10,7 @@ export default {
         // caption에서 해시태그 추출
         let hashtagObj: any[] = [];
         if (caption) {
-          const hashtags = caption.match(/#[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|\w]+/g);
-          if (hashtags) {
-            hashtagObj = processHashtags(caption);
-          }
+          hashtagObj = processHashtags(caption);
         }
 
         return client.photo.create({
