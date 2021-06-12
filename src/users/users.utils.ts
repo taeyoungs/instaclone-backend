@@ -42,13 +42,23 @@ type NotLogggedInResult = {
 };
 
 export function protectedResolver(resolver: Resolver): Resolver {
-  return function (root, args, ctx, info): Resolver | NotLogggedInResult {
+  return function (
+    root,
+    args,
+    ctx,
+    info
+  ): Resolver | NotLogggedInResult | null {
     if (!ctx.loggedInUser) {
-      return {
-        ok: false,
-        error: 'Please log in to perform this action',
-      };
+      if (info.operation.operation === 'query') {
+        return null;
+      } else {
+        return {
+          ok: false,
+          error: 'Please log in to perform this action',
+        };
+      }
     }
+
     return resolver(root, args, ctx, info);
   };
 }

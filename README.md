@@ -31,6 +31,10 @@ Instaclone Backend.
 
 ## Comments
 
-- [ ] Comment on Photo
-- [ ] Edit Comment
-- [ ] Is Mine (Delete Comment)
+- [x] Comment on Photo
+- [x] Delete Comment
+- [x] Edit Comment
+
+## Refactor
+
+- [x] ProtectedResolver
