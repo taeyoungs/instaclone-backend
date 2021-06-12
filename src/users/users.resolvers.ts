@@ -56,6 +56,12 @@ const resolvers: Resolvers = {
           ...(lastId && { cursor: { id: lastId } }),
         }),
   },
+  Query: {
+    testArray: (_, args) => {
+      console.log(Array.isArray(args.arr));
+      return true;
+    },
+  },
 };
 
 export default resolvers;

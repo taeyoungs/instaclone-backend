@@ -224,3 +224,79 @@ export const processHashtags = (caption: string) => {
 ## dependencies
 
 ## devDependencies
+
+# 16 See Likes
+
+## log
+
+- `select`과 `include`
+
+  `select`은 테이블에서 원하는 필드만 선택해서 해당 필드 정보만 가지고 올 수 있게 하는 옵션이고 `include`는 외래키로 연결된 필드의 정보까지 추가로 가져오게 하는 옵션이다. 즉, `select`은 전체 필드 중에서 해당 필드만 가져오겠다는 것이고 `include`는 전체 필드에 더하여 해당 필드 정보까지 추가로 가져오겠다는 의미이다.
+
+- Like 테이블에서 Photo 아이디값으로 해당 Photo 아이디값을 가진 Like 컬럼을 찾아서 User 목록을 조회하던지, User 목록 중에서 User가 가진 Like 목록 중에 해당 Photo 아이디값을 가지고 있는 User 목록을 조회
+
+## tips
+
+## issue
+
+- none
+
+## dependencies
+
+## devDependencies
+
+# 17 See Feed
+
+## log
+
+- Photo 목록 중에 팔로잉한 사람들의 Photo만 뽑아내기
+
+  Photo 테이블에 해당 Photo의 주인인 User 정보가 있을텐데 만약 이 사람을 내가 팔로잉하고 있다면 이 사람의 팔로워 목록에 내가 들어있을 것이다. 따라서, Photo 주인의 팔로워 목록에 내가 있는 Photo만 추출해내면 팔로잉한 사람들의 Photo 목록만을 얻을 수 있다.
+
+- 인스타그램에선 이미 자기 자신을 팔로잉하고 있다. (팔로잉한 것처럼 사진을 받아온다)
+
+  이게 무슨 말이냐 하면 팔로잉한 사람들의 사진 목록을 추출해내고 있는데 그 중 자기 자신의 사진 목록이 포함되어 있으니 기본적으로 자기 자신을 팔로잉하고 있는 상태이다. 다만, 자기 자신을 팔로잉하게 되면 팔로워 목록에서 항상 -1을 해줘야 하는 등 귀찮은 일이 생기므로 팔로잉한 사람들의 사진들을 추출할 때 `OR` 조건을 이용하여 내가 올린 사진들 또한 가져오도록 하자.
+
+```ts
+import { Resolvers } from '../../type';
+import { protectedResolver } from '../../users/users.utils';
+
+// TODO: pagination
+export default {
+  Query: {
+    seeFeed: protectedResolver((_, __, { client, loggedInUser }) =>
+      client.photo.findMany({
+        where: {
+          OR: [
+            {
+              user: {
+                followers: {
+                  some: {
+                    id: loggedInUser.id,
+                  },
+                },
+              },
+            },
+            {
+              userId: loggedInUser.id,
+            },
+          ],
+        },
+        orderBy: {
+          createdAt: 'desc',
+        },
+      })
+    ),
+  },
+} as Resolvers;
+```
+
+## tips
+
+## issue
+
+- none
+
+## dependencies
+
+## devDependencies
