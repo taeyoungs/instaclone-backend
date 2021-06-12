@@ -22,7 +22,6 @@ const server = new ApolloServer({
   },
 });
 
-app.use(logger('tiny'));
 app.use(graphqlUploadExpress());
 app.use('/static', express.static('uploads'));
 server.applyMiddleware({ app });

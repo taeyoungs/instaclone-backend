@@ -1,8 +1,7 @@
-import path from 'path';
-import { GraphQLFileUpload, Resolvers } from '../../type';
+import { Resolvers } from '../../type';
 import bcrypt from 'bcrypt';
-import { createWriteStream } from 'fs';
 import { protectedResolver } from '../users.utils';
+import { deleteUploadedFile, uploadToS3 } from '../../shared/shared.uilts';
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -20,8 +19,25 @@ const resolvers: Resolvers = {
         },
         { client, loggedInUser }
       ) => {
+        // delete existed avatar
+        const existedAvatar = await client.user.findUnique({
+          where: {
+            id: loggedInUser.id,
+          },
+          select: {
+            avatar: true,
+          },
+        });
+
+        if (existedAvatar?.avatar) {
+          deleteUploadedFile(existedAvatar.avatar);
+        }
+
         let avatarUrl = null;
         if (avatar) {
+          avatarUrl = await uploadToS3(avatar, loggedInUser.id, 'avatar');
+          // save file to server
+          /*
           const { filename, createReadStream } =
             (await avatar) as GraphQLFileUpload;
           const newFilename = `${loggedInUser.id}-${Date.now()}-${filename}`;
@@ -32,6 +48,7 @@ const resolvers: Resolvers = {
           );
           readStream.pipe(writeStream);
           avatarUrl = `http://localhost:4000/static/${newFilename}`;
+          */
         }
 
         // password를 전달받았을 때만 password를 hash 처리
@@ -42,7 +59,7 @@ const resolvers: Resolvers = {
 
         const updatedUser = await client.user.update({
           where: {
-            id: 1,
+            id: loggedInUser.id,
           },
           data: {
             username,
