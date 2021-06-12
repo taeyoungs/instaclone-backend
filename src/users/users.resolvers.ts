@@ -22,11 +22,7 @@ const resolvers: Resolvers = {
           },
         },
       }),
-    isMe: ({ id }, _, { loggedInUser }) => {
-      if (!loggedInUser) return false;
-
-      return id === loggedInUser.id;
-    },
+    isMe: ({ id }, _, { loggedInUser }) => id === loggedInUser?.id,
     isFollowing: async ({ id }, _, { loggedInUser, client }) => {
       if (!loggedInUser) return false;
       if (id === loggedInUser.id) return false;
@@ -55,12 +51,6 @@ const resolvers: Resolvers = {
           skip: lastId ? 1 : 0,
           ...(lastId && { cursor: { id: lastId } }),
         }),
-  },
-  Query: {
-    testArray: (_, args) => {
-      console.log(Array.isArray(args.arr));
-      return true;
-    },
   },
 };
 

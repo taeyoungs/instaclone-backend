@@ -300,3 +300,51 @@ export default {
 ## dependencies
 
 ## devDependencies
+
+# 18 Comment on Photos
+
+## log
+
+- Comment Model 추가
+- isMine (Computed field)
+
+  Photo와 Comment 타입에 로그인한 사용자의 댓글인지 확인할 수 있는 isMine 필드 추가, 자기 자신의 댓글일 경우 삭제가 가능해야 하기 때문에 이를 확인할 수 있는 Computed field를 추가해서 이용한다.  
+  항상 로그인한 상태는 아닐테니까 주의할 점은 loggedInUser가 없는 경우가 있다는 점. 따라서, loggedInUser를 이용해서 작업을 해야 하는 경우 로그인한 사용자 정보가 null아 아닌지 체크해줄 필요가 있다.
+
+- Create Comment
+
+  photo의 id값과 text를 인자값으로 받아 Comment 테이블에 새로운 Comment 컬럼을 생성한다. (Photo, User connect 연결 필수)
+
+## tips
+
+## issue
+
+- none
+
+## dependencies
+
+## devDependencies
+
+# 19 See Photo Comments
+
+## log
+
+- Photo 타입에 Photo에 연결된 Comment 컬럼의 개수를 알 수 있도록 comments라는 필드를 추가 (Computed field)
+
+  Hashtag 타입에서 Photo 목록을 pagination 해서 정보를 모두 가져오는 것과 달리 개수만 알 수 있는 필드를 추가하는 것은 인스타그램에서 comments를 보여주는 방식 때문이다. 한 화면 내에서 모든 걸 같이 보여주는 방식이라면 해당 타입 정보를 가져올 때 외래 키로 연결된 다른 타입의 정보도 가져와서 같이 보여주겠지만 인스타그램에서 댓글을 보려고 누르면 다른 화면으로 이동해서 댓글을 보여준다.  
+  즉, 다른 화면에서 다른 리졸버가 실행되어 댓글 목록을 가져온다는 것이다.  
+  틀린 방법이 아니라 사용자에게 보여주고자 하는 방식이 다를 뿐이다. 한 화면에서 모두 같이 보여주고 싶다면 다른 리졸버를 만드는 것이 아니라 computed field를 이용하여 모든 정보를 같이 가져오고 다른 화면에서 따로 진행하고 싶다면 리졸버를 따로 구현하는 것이 좋다.
+
+- include or select
+
+  comments 목록을 가져올 때 연결된 User의 특정 필드만 가져오거나 아예 가져오는 작업이 필요한 것 같다. 댓글을 보여줄 때 보통 아이디나 사진 등을 보여주게 되니 ..
+
+## tips
+
+## issue
+
+- none
+
+## dependencies
+
+## devDependencies

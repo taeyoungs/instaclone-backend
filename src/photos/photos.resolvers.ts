@@ -25,6 +25,14 @@ export default {
           photoId: id,
         },
       }),
+    comments: ({ id }: Photo, _, { client }) =>
+      client.comment.count({
+        where: {
+          photoId: id,
+        },
+      }),
+    isMine: ({ userId }: Photo, _, { loggedInUser }) =>
+      userId === loggedInUser?.id,
   },
   Hashtag: {
     photos: ({ id }, { lastId }, { client }) =>
@@ -49,5 +57,8 @@ export default {
           },
         },
       }),
+  },
+  Comment: {
+    isMine: ({ userId }, _, { loggedInUser }) => userId === loggedInUser?.id,
   },
 } as Resolvers;

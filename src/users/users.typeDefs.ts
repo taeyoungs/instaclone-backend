@@ -20,11 +20,4 @@ export default gql`
     isMe: Boolean!
     isFollowing: Boolean!
   }
-  input Sample {
-    id: Int!
-    username: String!
-  }
-  type Query {
-    testArray(arr: [Sample]): Boolean!
-  }
 `;
